@@ -18,24 +18,9 @@ Every presented item is confirmed to exist, with its latest state and official l
 
 ## Process
 
-1. **Refine.** Fill the goal checklist with the user until the target is precise: outcome, level, scope, grouping. Resolve and read the recipe with `@../references/recipe-locations.md` when it exists. Run `list` when it is unnamed.
-
-```md
-@../assets/research-goal-checklist.md
-```
-
-2. **Scout.** Cover every angle in the playbook. The caller or orchestrator may isolate or parallelize independent angles; this action never requires a particular delegation mechanism. Return candidates with sources.
-
-```md
-@../references/research-playbook.md
-```
-
-3. **Curate.** Dedupe the candidates. Drop anything that neither beats nor extends the recipe. Sort each bucket by value. Clear the research checklist: gaps filled, unknowns surfaced, claims corroborated.
-
-```md
-@../assets/research-checklist.md
-```
-
+1. **Refine.** Fill [research-goal-checklist.md](../assets/research-goal-checklist.md) with the user until the target is precise: outcome, level, scope, grouping. Resolve and read the recipe with [recipe-locations.md](../references/recipe-locations.md) when it exists. Run `list` when it is unnamed.
+2. **Scout.** Cover every angle in [research-playbook.md](../references/research-playbook.md). The caller or orchestrator may isolate or parallelize independent angles; this action never requires a particular delegation mechanism. Return candidates with sources.
+3. **Curate.** Dedupe the candidates. Drop anything that neither beats nor extends the recipe. Sort each bucket by value. Clear [research-checklist.md](../assets/research-checklist.md): gaps filled, unknowns surfaced, claims corroborated.
 4. **Verify.** Apply the playbook's candidate checks. Drop anything that cannot be confirmed against an official source.
 5. **Present.** Render the alternatives table, the coverage-gaps list, and the counter-intuitive wins list, each item carrying its official link, then state a recommendation and why.
 6. **Hand off.** If the user picks insights to keep, route to `upsert` to fold them into the recipe.

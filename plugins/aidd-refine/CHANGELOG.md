@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.2.3](https://github.com/ai-driven-dev/framework/compare/aidd-refine-v2.2.2...aidd-refine-v2.2.3) (2026-08-06)
+
+
+### Refactoring
+
+* **orchestrator:** replace SDLC actions with protocols ([#517](https://github.com/ai-driven-dev/framework/issues/517)) ([ed81604](https://github.com/ai-driven-dev/framework/commit/ed816044709b2b7081cc00ad2103a8571bf0ad6c))
+* **plugins:** action citations use markdown links, not @ ([c5da712](https://github.com/ai-driven-dev/framework/commit/c5da7126ef30354e17d4665300bd88481fc7c816))
+
+## [2.2.2](https://github.com/ai-driven-dev/framework/compare/aidd-refine-v2.2.1...aidd-refine-v2.2.2) (2026-07-31)
+
+
+### Refactoring
+
+* **aidd-refine:** 01-brainstorm moves from fixed probing loop to internal discovery map ([#510](https://github.com/ai-driven-dev/framework/issues/510)) ([824220e](https://github.com/ai-driven-dev/framework/commit/824220e7361a9793f7751d54bf0f4d3c22535523)), closes [#504](https://github.com/ai-driven-dev/framework/issues/504)
+
 ## [2.2.1](https://github.com/ai-driven-dev/framework/compare/aidd-refine-v2.2.0...aidd-refine-v2.2.1) (2026-07-10)
 
 

@@ -13,7 +13,7 @@ import type {
   ResolveMarketplaceUseCase,
 } from "../../../../src/application/use-cases/shared/resolve-marketplace-use-case.js";
 import { Marketplace } from "../../../../src/domain/models/marketplace.js";
-import { builtMarketplaceDir } from "../../../../src/domain/models/paths.js";
+import { BUILT_CACHE_SUBDIR, builtMarketplaceDir } from "../../../../src/domain/models/paths.js";
 import type { AssetProvider } from "../../../../src/domain/ports/asset-provider.js";
 import type { JsonSchemaValidator } from "../../../../src/domain/ports/json-schema-validator.js";
 import type { VersionReader } from "../../../../src/domain/ports/version-reader.js";
@@ -216,13 +216,11 @@ describe("EnsureBuiltMarketplaceUseCase", () => {
   });
 });
 
-// BUG-E2-01: deps.ts hardcodes force:true for this rebuild path because outDir is always
-// builtMarketplaceDir() — an aidd-owned disposable cache, never a user-owned directory. A
-// collision here only means "the cache from a previous build already exists" and should be
-// overwritten, not treated as a destructive overwrite of user data. This pins that decision
-// with a real FlatBuildStrategy (not the fake buildFor stub used above), so it fails if
-// force is ever flipped to false here, or if outDir stops being cache-only.
-describe("force behavior at the cache-rebuild path (BUG-E2-01)", () => {
+// outDir here is always builtMarketplaceDir() — an aidd-owned disposable cache, never a
+// user directory — so a collision just means "a previous build is still there" and must be
+// overwritten. Uses a real FlatBuildStrategy rather than the fake buildFor stub above, so it
+// fails if force is flipped to false or outDir stops being cache-only.
+describe("force behavior at the cache-rebuild path", () => {
   it("overwrites a colliding file already present in the build cache instead of throwing FlatTargetExistsError", async () => {
     const memFs = new InMemoryFileAdapter();
     await seedFromDirectory(memFs, FIXTURE_DIR, { useAbsolutePaths: true });
@@ -269,5 +267,68 @@ describe("force behavior at the cache-rebuild path (BUG-E2-01)", () => {
 
     expect(result.rebuilt).toBe(true);
     expect(memFs.getFile(agentPath)).not.toBe("stale cache content from a previous build");
+  });
+});
+
+// The "force behavior" suite above proves the collision-bypass fires. It does not prove
+// the bypass only ever fires against an aidd-owned directory — that guarantee lives in
+// which outDir runBuild() is called with, both for a direct build (build()) and a build
+// routed through a temp dir first (buildViaTemp(), used when the cache nests under the
+// source). This pins that outDir, whichever path is taken, never leaves the build cache
+// or the OS temp dir — so a future change that points either call site at a live user
+// directory (e.g. a tool's real config dir) fails here, not in someone's project.
+describe("outDir invariant for the cache-rebuild build path", () => {
+  it("only ever builds into the aidd build cache or the OS temp dir, never a user directory", async () => {
+    const memFs = new InMemoryFileAdapter();
+    const capturedOutDirs: string[] = [];
+    const capturingBuildFor: FrameworkBuildFor = (_target, _mode, outDir) => {
+      capturedOutDirs.push(outDir);
+      return {
+        execute: async () => {
+          await memFs.writeFile(join(outDir, "plugins/aidd-vcs/SKILL.md"), "built content");
+          return { outDir, plugins: [], totalFiles: 1 };
+        },
+      } as unknown as FrameworkBuildUseCase;
+    };
+
+    // Direct path: source lives outside the cache tree → build() writes straight to builtDir.
+    const direct = new EnsureBuiltMarketplaceUseCase(
+      memFs,
+      fakeResolve("/src/framework", "1.0.0"),
+      capturingBuildFor,
+      fakeVersion("5.0.0")
+    );
+    await direct.execute({
+      projectRoot: PROJECT,
+      marketplace: makeMarketplace(),
+      target: "codex",
+      mode: "marketplace",
+    });
+
+    // Dogfood path: source is the project root, so builtDir nests under it → buildViaTemp()
+    // routes the same call through a temp dir instead (see the "builds via a temp dir" test above).
+    const dogfood = new EnsureBuiltMarketplaceUseCase(
+      memFs,
+      fakeResolve(PROJECT, "1.0.0"),
+      capturingBuildFor,
+      fakeVersion("5.0.0")
+    );
+    await dogfood.execute({
+      projectRoot: PROJECT,
+      marketplace: makeMarketplace(),
+      target: "cursor",
+      mode: "marketplace",
+    });
+
+    expect(capturedOutDirs).toHaveLength(2);
+    const cacheRoot = join(PROJECT, BUILT_CACHE_SUBDIR);
+    const tmpRoot = tmpdir();
+    for (const outDir of capturedOutDirs) {
+      const underCache = outDir === cacheRoot || outDir.startsWith(`${cacheRoot}/`);
+      const underTmp = outDir === tmpRoot || outDir.startsWith(`${tmpRoot}/`);
+      expect(underCache || underTmp).toBe(true);
+    }
+    // The dogfood call specifically must have gone through the temp dir, not the cache.
+    expect(capturedOutDirs[1]?.startsWith(`${tmpRoot}/`)).toBe(true);
   });
 });

@@ -2,6 +2,7 @@ import { join } from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { MarketplaceRefreshUseCase } from "../../../../src/application/use-cases/marketplace/marketplace-refresh-use-case.js";
 import { FetchMarketplaceSourceUseCase } from "../../../../src/application/use-cases/shared/fetch-marketplace-source-use-case.js";
+import { ResolveMarketplaceUseCase } from "../../../../src/application/use-cases/shared/resolve-marketplace-use-case.js";
 import { Marketplace } from "../../../../src/domain/models/marketplace.js";
 import { MARKETPLACE_CACHE_SUBDIR } from "../../../../src/domain/models/paths.js";
 import { serializePluginSource } from "../../../../src/domain/models/plugin-source.js";
@@ -9,6 +10,7 @@ import { PluginCatalogRepositoryAdapter } from "../../../../src/infrastructure/a
 import { DeterministicHasher } from "../../../helpers/ports/deterministic-hasher.js";
 import { FixturePluginFetcher } from "../../../helpers/ports/fixture-plugin-fetcher.js";
 import { InMemoryFileAdapter } from "../../../helpers/ports/in-memory-file-adapter.js";
+import { InMemoryMarketplaceCache } from "../../../helpers/ports/in-memory-marketplace-cache.js";
 import { InMemoryMarketplaceRegistry } from "../../../helpers/ports/in-memory-marketplace-registry.js";
 import { seedFromDirectory } from "../../../helpers/ports/seed-from-directory.js";
 
@@ -29,13 +31,54 @@ async function buildUseCase() {
   };
   const pluginFetcher = new FixturePluginFetcher(fetchers);
   const fetchMarketplaceSource = new FetchMarketplaceSourceUseCase(pluginFetcher);
-  const useCase = new MarketplaceRefreshUseCase(
-    new PluginCatalogRepositoryAdapter(fs),
-    registry,
-    fetchMarketplaceSource
+  const resolveMarketplace = new ResolveMarketplaceUseCase(
+    fetchMarketplaceSource,
+    new PluginCatalogRepositoryAdapter(fs)
   );
-  return { useCase, registry };
+  const cache = new InMemoryMarketplaceCache();
+  const useCase = new MarketplaceRefreshUseCase(registry, resolveMarketplace, cache);
+  return { useCase, registry, cache };
 }
+
+describe("MarketplaceRefreshUseCase — force", () => {
+  async function withRegistered(name: string) {
+    const built = await buildUseCase();
+    await built.registry.save(
+      PROJECT_ROOT,
+      Marketplace.create({
+        name,
+        source: { kind: "local", path: VALID_FIXTURE },
+        scope: "project",
+        addedAt: "2026-04-29T10:00:00.000Z",
+      })
+    );
+    return built;
+  }
+
+  it("clears the named marketplace's cache before re-fetching", async () => {
+    const { useCase, cache } = await withRegistered("awesome");
+
+    await useCase.execute({ projectRoot: PROJECT_ROOT, name: "awesome", force: true });
+
+    expect(cache.clearCalls).toEqual(["awesome"]);
+  });
+
+  it("clears every cached marketplace when no name is given", async () => {
+    const { useCase, cache } = await withRegistered("awesome");
+
+    await useCase.execute({ projectRoot: PROJECT_ROOT, force: true });
+
+    expect(cache.clearCalls).toEqual([undefined]);
+  });
+
+  it("leaves the cache untouched without the flag", async () => {
+    const { useCase, cache } = await withRegistered("awesome");
+
+    await useCase.execute({ projectRoot: PROJECT_ROOT, name: "awesome" });
+
+    expect(cache.clearCalls).toEqual([]);
+  });
+});
 
 describe("MarketplaceRefreshUseCase", () => {
   it("refreshes a registered marketplace and updates lastFetched", async () => {
@@ -173,10 +216,14 @@ describe("MarketplaceRefreshUseCase", () => {
       });
       await fs.writeFile(join(cacheDir, ".claude-plugin/marketplace.json"), staleCatalogJson);
 
-      const useCase = new MarketplaceRefreshUseCase(
-        new PluginCatalogRepositoryAdapter(fs),
-        registry,
+      const resolveMarketplace = new ResolveMarketplaceUseCase(
         fetchMarketplaceSource,
+        new PluginCatalogRepositoryAdapter(fs)
+      );
+      const useCase = new MarketplaceRefreshUseCase(
+        registry,
+        resolveMarketplace,
+        new InMemoryMarketplaceCache(),
         logger,
         fs
       );
@@ -216,10 +263,14 @@ describe("MarketplaceRefreshUseCase", () => {
       await fs.writeFile(join(cacheDir, ".claude-plugin/marketplace.json"), freshCatalogJson);
       await fs.writeFile(join(cacheDir, "plugins/aidd-dev/plugin.json"), "{}");
 
-      const useCase = new MarketplaceRefreshUseCase(
-        new PluginCatalogRepositoryAdapter(fs),
-        registry,
+      const resolveMarketplace = new ResolveMarketplaceUseCase(
         fetchMarketplaceSource,
+        new PluginCatalogRepositoryAdapter(fs)
+      );
+      const useCase = new MarketplaceRefreshUseCase(
+        registry,
+        resolveMarketplace,
+        new InMemoryMarketplaceCache(),
         logger,
         fs
       );

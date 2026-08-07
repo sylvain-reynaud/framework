@@ -34,11 +34,10 @@ Bootstrap, project init, context-artifact generation, diagrams, learning, and ex
 
 ## 💻 aidd-dev
 
-The development SDLC: plan, implement, assert, audit, review, test, refactor, debug, for-sure, todo.
+Code transformation: plan, implement, assert, audit, review, test, refactor, debug, for-sure, todo. Standalone Browser QA records short web evidence.
 
 | Skill           | Role                                                                       | Actions                                                                         |
 | --------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `00-sdlc`       | Pure orchestrator driving the full dev flow end to end                     | `01-spec`, `02-plan`, `03-implement`, `04-review`, `05-ship`                     |
 | `01-plan`       | Turn a request, ticket, or file into a phased implementation plan: gather, explore, wireframe, plan | `01-gather`, `02-explore`, `03-wireframe`, `04-plan`          |
 | `02-implement`  | Execute a plan phase by phase until 100% complete                          | `01-implement`                                                                   |
 | `03-assert`     | Assert features work - general, architecture, frontend UI                  | `01-assert`, `02-assert-architecture`, `03-assert-frontend`                      |
@@ -49,17 +48,24 @@ The development SDLC: plan, implement, assert, audit, review, test, refactor, de
 | `08-debug`      | Reproduce and fix bugs with a test-driven workflow                         | `01-reproduce`, `02-debug`, `03-reflect-issue`                                   |
 | `09-for-sure`   | Iterative loop that retries until a success condition is met               | `01-init-tracking`, `02-auto-accept`, `03-autonomous-loop`                       |
 | `10-todo`       | Split the prompt into independent todos, run one implementer agent per todo in parallel | `01-todo`                                                            |
+| `11-browser-qa` | Record short reviewer videos for browser-scoped happy and edge cases        | `00-prerequisites`, `01-load-scope`, `02-prepare-run`, `03-run-scenarios`     |
 
 ## 📋 aidd-pm
 
-Product management: ticket retrieval, user stories, PRD, spec.
+Product backlog artifacts, refinement, Product Briefs, Epics, User Stories, Tasks, Spikes, Defects, requirements, and specs.
 
 | Skill                     | Role                                                       | Actions                          |
 | ------------------------- | ---------------------------------------------------------- | -------------------------------- |
 | `01-ticket-info`          | Retrieve and display ticket information                    | `01-ticket-info`                 |
-| `02-user-stories`         | Prioritized, estimated INVEST user-story backlog           | `01-clarify-scope`, `02-split-epic`, `03-draft-stories`, `04-estimate-impact`, `05-prioritize`, `06-sync-tracker` |
+| `02-user-stories`         | Slice, assess, and order User Stories                       | `01-frame` to `07-finalize`      |
 | `03-prd`                  | Generate a structured Product Requirements Document        | `01-prd`                         |
 | `04-spec`                 | Generate or refine a normalized project spec               | `01-build`, `02-refine`          |
+| `05-spike`                | Record or investigate a decision-blocking uncertainty      | `01-create`, `02-investigate`, `03-conclude` |
+| `06-product-brief`        | Produce a Product Brief before requirements                | `01-frame` to `05-finalize`      |
+| `07-epic`                 | Frame and manage one outcome-based Epic                    | `01-shape`, `02-review`, `03-finalize` |
+| `08-three-amigos`         | Reconcile product, delivery, and quality refinement        | `01-assess`, `02-reconcile`      |
+| `09-defect`               | Record and manage an observed product mismatch             | `01-capture`, `02-assess`, `03-finalize` |
+| `10-task`                 | Record and manage bounded delivery work                    | `01-frame`, `02-review`, `03-finalize` |
 
 ## 🪞 aidd-refine
 
@@ -87,11 +93,13 @@ Version-control workflows: repo init, commit, pull/merge request, release tag, i
 
 ## 🎼 aidd-orchestrator
 
-Optional. Runs the SDLC asynchronously on labeled issues (webhook or cron). Most projects do not need it.
+Runs synchronous feature delivery, optional async issue automation, and the product backlog.
 
-| Skill            | Role                                                  | Sub-flows                 |
-| ---------------- | ----------------------------------------------------- | ------------------------- |
-| `00-async-dev`   | Single entry point for the async-dev pipeline         | `setup`, `run`, `review`  |
+| Skill            | Role                                                    | Protocols                   |
+| ---------------- | ------------------------------------------------------- | --------------------------- |
+| `00-async-dev`   | Single entry point for the async-dev pipeline           | `setup`, `run`, `review`    |
+| `01-sdlc`        | Autonomously drive the full development flow end to end | `frame`, `deliver`, `check` |
+| `02-backlog`     | Route backlog intake, refinement, lifecycle, and repair | `01-inspect` to `08-verify` |
 
 ## 🎨 aidd-ui
 
