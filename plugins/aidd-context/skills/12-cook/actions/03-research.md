@@ -24,7 +24,7 @@ Every presented item is confirmed to exist, with its latest state and official l
 @../assets/research-goal-checklist.md
 ```
 
-2. **Fan out.** Spawn one agent per angle in the playbook via the `Task` tool. Each applies the playbook criteria (freshness, community signal, tips), pushes for the most insights it can, and includes counter-intuitive ones with evidence. Each returns candidates with sources.
+2. **Scout.** Cover every angle in the playbook. The caller or orchestrator may isolate or parallelize independent angles; this action never requires a particular delegation mechanism. Return candidates with sources.
 
 ```md
 @../references/research-playbook.md
@@ -36,7 +36,7 @@ Every presented item is confirmed to exist, with its latest state and official l
 @../assets/research-checklist.md
 ```
 
-4. **Verify.** Spawn one agent per surviving candidate via the `Task` tool to confirm it exists, capture its official link, and record its latest state (version or date). Drop any candidate that cannot be confirmed against an official source.
+4. **Verify.** Apply the playbook's candidate checks. Drop anything that cannot be confirmed against an official source.
 5. **Present.** Render the alternatives table, the coverage-gaps list, and the counter-intuitive wins list, each item carrying its official link, then state a recommendation and why.
 6. **Hand off.** If the user picks insights to keep, route to `upsert` to fold them into the recipe.
 
@@ -44,4 +44,5 @@ Every presented item is confirmed to exist, with its latest state and official l
 
 - The output has an alternatives table with pros and cons, a coverage-gaps list, and a counter-intuitive wins list, plus an explicit recommendation, and nothing is written to disk.
 - Every presented item carries an official link and was confirmed to exist; unverifiable candidates are dropped.
+- Every candidate clears the playbook's evidence and transferability criteria.
 - The research checklist clears (gaps filled, unknowns surfaced, claims confirmed) before any hand-off to `upsert`.
