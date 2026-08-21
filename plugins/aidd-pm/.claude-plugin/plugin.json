@@ -17,7 +17,8 @@
     "./skills/07-epic",
     "./skills/08-three-amigos",
     "./skills/09-defect",
-    "./skills/10-task"
+    "./skills/10-task",
+    "./skills/11-persona"
   ],
   "keywords": [
     "backlog",
@@ -31,7 +32,8 @@
     "specification",
     "spikes",
     "defects",
-    "tickets"
+    "tickets",
+    "personas"
   ],
   "repository": "https://github.com/ai-driven-dev/framework",
   "homepage": "https://ai-driven.dev",

@@ -8,4 +8,5 @@ Offer the named capability with what was observed, then stop. Never invoke it si
 | one outcome requiring several deliverable slices | Epic | one-way; the brief stays its goal |
 | one independently deliverable behavior | User Story | one-way |
 | observed product mismatch | Defect | one-way |
+| a user group worth a durable profile | Persona | one-way; the brief keeps its audience summary |
 | no match | none | report what was observed |
