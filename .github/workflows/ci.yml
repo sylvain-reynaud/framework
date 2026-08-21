@@ -63,6 +63,9 @@ jobs:
       aidd_refine_release_created: ${{ steps.release.outputs['plugins/aidd-refine--release_created'] }}
       aidd_refine_version: ${{ steps.release.outputs['plugins/aidd-refine--version'] }}
       aidd_refine_tag_name: ${{ steps.release.outputs['plugins/aidd-refine--tag_name'] }}
+      aidd_ui_release_created: ${{ steps.release.outputs['plugins/aidd-ui--release_created'] }}
+      aidd_ui_version: ${{ steps.release.outputs['plugins/aidd-ui--version'] }}
+      aidd_ui_tag_name: ${{ steps.release.outputs['plugins/aidd-ui--tag_name'] }}
     steps:
       - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: app-token
