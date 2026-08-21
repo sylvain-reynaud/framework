@@ -8,7 +8,7 @@ The exhaustive list of AIDD plugins, skills, and actions. Skills are invoked thr
 - [aidd-refine](#-aidd-refine) - meta-cognition
 - [aidd-vcs](#-aidd-vcs) - version control workflows
 - [aidd-orchestrator](#-aidd-orchestrator) - async orchestration (optional)
-- [aidd-ui](#-aidd-ui) - UI / UX (🚧 alpha, not ready)
+- [aidd-ui](#-aidd-ui) - experience design (🚧 alpha)
 
 ---
 
@@ -66,6 +66,7 @@ Product backlog artifacts, refinement, Product Briefs, Epics, User Stories, Task
 | `08-three-amigos`         | Reconcile product, delivery, and quality refinement        | `01-assess`, `02-reconcile`      |
 | `09-defect`               | Record and manage an observed product mismatch             | `01-capture`, `02-assess`, `03-finalize` |
 | `10-task`                 | Record and manage bounded delivery work                    | `01-frame`, `02-review`, `03-finalize` |
+| `11-persona`              | Produce an evidence-backed user persona                    | `01-frame`, `02-discover`, `03-shape`, `04-finalize` |
 
 ## 🪞 aidd-refine
 
@@ -102,8 +103,10 @@ Runs synchronous feature delivery, optional async issue automation, and the prod
 
 ## 🎨 aidd-ui
 
-🚧 **Alpha — not ready for use.** UI / UX: design, review, and improve frontend interfaces. Currently a smoke-test only.
+🚧 **Alpha, off the curated install path.** Experience design: audit an interface, design a feature's experience, and shape an engagement system through expert UX, delight, and game-design lenses. Writes artifacts only, never application source.
 
-| Skill      | Role                                      | Actions    |
-| ---------- | ----------------------------------------- | ---------- |
-| `01-hello` | Smoke-test that confirms the plugin loads | `01-greet` |
+| Skill                  | Role                                                                        | Actions                                              |
+| ---------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `01-experience-audit`  | Rank the premium gaps of an existing interface through expert lenses        | `scope`, `observe`, `assess`, `rank`, `report`       |
+| `02-experience-design` | Produce the experience brief of a feature before it is planned              | `frame`, `immerse`, `shape`, `moment`, `finalize`    |
+| `03-engagement-system` | Design the motivation and gamification system with ethical guardrails       | `frame`, `model`, `mechanics`, `safeguard`, `finalize` |

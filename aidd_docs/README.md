@@ -43,6 +43,7 @@ Skills are grouped into plugins by domain. Install only the plugins you need.
 | aidd-dev          | Code transformation: plan, implement, assert, audit, review, test, refactor, debug, for-sure | `01-plan`, `02-implement`, `05-review`, `06-test` |
 | aidd-vcs          | VCS workflows: commit, pull/merge request, release tag, issue creation             | `01-commit`, `02-pull-request`, `04-issue-create`           |
 | aidd-orchestrator | Synchronous SDLC, async issue-to-PR automation, and product backlog                 | `00-async-dev`, `01-sdlc`, `02-backlog`                    |
+| aidd-ui           | Experience design (alpha): audit an interface, design a feature's experience, shape an engagement system | `01-experience-audit`, `02-experience-design`, `03-engagement-system` |
 
 > See the [CATALOG](../docs/CATALOG.md) for the exhaustive list of skills and actions.
 
@@ -107,8 +108,9 @@ AIDD is delivered as a plugin marketplace. Pick what you need; do not install ev
 | aidd-dev     | 01-plan, 02-implement, 03-assert, 04-audit, 05-review, 06-test, 07-refactor, 08-debug, 09-for-sure, 10-todo       |
 | aidd-orchestrator | 00-async-dev, 01-sdlc                                                                                         |
 | aidd-vcs     | 01-commit, 02-pull-request, 03-release-tag, 04-issue-create                                                         |
-| aidd-pm      | 01-ticket-info, 02-user-stories, 03-prd, 04-spec, 05-spike, 06-product-brief, 07-epic, 08-three-amigos, 09-defect, 10-task |
+| aidd-pm      | 01-ticket-info, 02-user-stories, 03-prd, 04-spec, 05-spike, 06-product-brief, 07-epic, 08-three-amigos, 09-defect, 10-task, 11-persona |
 | aidd-orchestrator | 00-async-dev, 02-backlog                                                                                     |
+| aidd-ui      | 01-experience-audit, 02-experience-design, 03-engagement-system (alpha)                                          |
 
 Each plugin is independently installable; install incrementally. Smaller surface, fewer triggers competing.
 

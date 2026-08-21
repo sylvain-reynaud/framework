@@ -11,7 +11,8 @@
     "aidd-vcs@aidd-framework": true,
     "aidd-pm@aidd-framework": true,
     "aidd-orchestrator@aidd-framework": true,
-    "aidd-refine@aidd-framework": true
+    "aidd-refine@aidd-framework": true,
+    "aidd-ui@aidd-framework": true
   },
   "hooks": {
     "WorktreeCreate": [

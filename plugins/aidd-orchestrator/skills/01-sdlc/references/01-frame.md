@@ -2,7 +2,7 @@
 
 ## Behavior
 
-Start from `$source` only. Resolve a ticket when the source references one. Use the source directly when it is planning-ready. Otherwise clarify only the intent that can change what is built, then formalize the missing contract requirements. Hand the resulting contract to Deliver.
+Start from `$source` only. Resolve a ticket when the source references one. Use the source directly when it is planning-ready. Otherwise clarify only the intent that can change what is built, then formalize the missing contract requirements. When the change has a user-facing UI and the experience design provider is installed, design the experience before handing off: the contract then carries the experience brief. Hand the resulting contract to Deliver.
 
 ```mermaid
 ---
@@ -20,6 +20,7 @@ flowchart TD
     direction TB
     Brainstorm["/aidd-refine:01-brainstorm"]
     Spec["/aidd-pm:04-spec"]
+    Design["/aidd-ui:02-experience-design"]
   end
 
   subgraph HandoffStage["Hand off the contract"]
@@ -32,17 +33,20 @@ flowchart TD
   Source -- "Otherwise, use the source as provided." --> ResolvedSource
   Ticket --> ResolvedSource
   ResolvedSource -- "When it is planning-ready, continue directly." --> Contract
+  ResolvedSource -- "When it is planning-ready but its user-facing experience is undesigned, design it." --> Design
   ResolvedSource -- "When intent can change what is built, clarify it." --> Brainstorm
   ResolvedSource -- "When only contract requirements are missing, formalize them." --> Spec
   Brainstorm --> Spec
-  Spec --> Contract
+  Spec -- "When the change has a user-facing UI and the provider is installed, design the experience." --> Design
+  Spec -- "Otherwise, hand off the contract." --> Contract
+  Design --> Contract
   Contract --> Deliver
 
   classDef skill fill:#DBEAFE,stroke:#2563EB,color:#1E3A8A,stroke-width:2px
   classDef artifact fill:#DCFCE7,stroke:#16A34A,color:#14532D,stroke-width:2px
   classDef zone fill:#F1F5F9,stroke:#64748B,color:#0F172A,stroke-width:2px
 
-  class Ticket,Brainstorm,Spec skill
+  class Ticket,Brainstorm,Spec,Design skill
   class Source,ResolvedSource,Contract artifact
   class Deliver zone
 ```

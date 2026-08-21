@@ -18,6 +18,7 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
   - [`skills/08-three-amigos`](#skills08-three-amigos)
   - [`skills/09-defect`](#skills09-defect)
   - [`skills/10-task`](#skills10-task)
+  - [`skills/11-persona`](#skills11-persona)
 
 ---
 
@@ -171,4 +172,20 @@ Auto-generated index of skills, agents, references and assets shipped by the `ai
 | `references` | [readiness.md](skills/10-task/references/readiness.md) | - |
 | `references` | [relations.md](skills/10-task/references/relations.md) | - |
 | `-` | [SKILL.md](skills/10-task/SKILL.md) | `Produces or refines a backlog Task for bounded delivery work without independent user value. Use when the user wants to create, link, order, estimate, transition, or complete one. Not for User Stories, Spikes, Defects, or implementation.` |
+
+#### `skills/11-persona`
+
+| Group | File | Description |
+|-------|------|---|
+| `actions` | [01-frame.md](skills/11-persona/actions/01-frame.md) | - |
+| `actions` | [02-discover.md](skills/11-persona/actions/02-discover.md) | - |
+| `actions` | [03-shape.md](skills/11-persona/actions/03-shape.md) | - |
+| `actions` | [04-finalize.md](skills/11-persona/actions/04-finalize.md) | - |
+| `assets` | [persona.md](skills/11-persona/assets/persona.md) | - |
+| `references` | [evidence.md](skills/11-persona/references/evidence.md) | - |
+| `references` | [handoffs.md](skills/11-persona/references/handoffs.md) | - |
+| `references` | [persistence.md](skills/11-persona/references/persistence.md) | - |
+| `references` | [quality.md](skills/11-persona/references/quality.md) | - |
+| `references` | [techniques.md](skills/11-persona/references/techniques.md) | - |
+| `-` | [SKILL.md](skills/11-persona/SKILL.md) | `Produces an evidence-backed user persona the product and experience work can reason from. Use when the user wants to define, revise, compare, or list who the product serves. Not for requirements, stories, or screens.` |
 
