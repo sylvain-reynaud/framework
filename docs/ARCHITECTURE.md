@@ -53,9 +53,9 @@ Every capability lives in exactly one plugin, chosen by **concern**. This taxono
 | `aidd-dev`          | Code transformation  | Execution    |
 | `aidd-vcs`          | Version control      | External     |
 | `aidd-orchestrator` | Orchestration        | Coordination |
-| `aidd-ui` 🚧        | UI/UX design         | Execution    |
+| `aidd-ui` 🚧        | Experience design    | Knowledge    |
 
-`aidd-ui` is alpha: smoke-test only, off the curated install path.
+`aidd-ui` is alpha: off the curated install path. It produces experience artifacts (audits, briefs, engagement systems) and never writes application source; visual craft is left to any installed frontend craft capability.
 
 - **Knowledge vs execution is a firewall.** Knowledge plugins produce artifacts you *read* and never write or run application source. `aidd-context`'s bootstrap deliberately creates no `package.json`. Real code belongs to `aidd-dev` or an orchestrator's own setup actions.
 - **Concern decides placement, not existence.** A missing capability goes in the plugin whose concern owns it, then the caller delegates. Never reimplement it in the calling plugin because the right home lacks it today.

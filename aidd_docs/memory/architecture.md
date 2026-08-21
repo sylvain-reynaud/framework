@@ -20,6 +20,7 @@ flowchart LR
     Plugins --> PM["aidd-pm"]
     Plugins --> Refine["aidd-refine"]
     Plugins --> Orchestrator["aidd-orchestrator"]
+    Plugins --> UI["aidd-ui (alpha)"]
     CLI["@ai-driven-dev/cli"] -- installs --> Plugins
 ```
 

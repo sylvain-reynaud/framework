@@ -3,7 +3,7 @@
 ```mermaid
 flowchart TD
     Root["framework/"] --> ClaudePlugin[".claude-plugin/ (marketplace manifest)"]
-    Root --> Plugins["plugins/ (6 plugin packages)"]
+    Root --> Plugins["plugins/ (7 plugin packages)"]
     Root --> Scripts["scripts/ (build & distribution)"]
     Root --> GH[".github/ (CI workflows, issue templates)"]
     Root --> AiddDocs["aidd_docs/ (memory bank, guidelines)"]
@@ -15,10 +15,12 @@ flowchart TD
     Plugins --> AiddPM["aidd-pm"]
     Plugins --> AiddRefine["aidd-refine"]
     Plugins --> AiddOrchestrator["aidd-orchestrator"]
+    Plugins --> AiddUI["aidd-ui (alpha)"]
 
     AiddContext --> CtxSkills["skills/ (onboard, bootstrap, project-memory, context-generate, mermaid, learn, discovery)"]
     AiddContext --> CtxHooks["hooks/update_memory.js"]
     AiddDev --> DevSkills["skills/ (01-plan, 02-implement, 03-assert, 04-audit, 05-review, 06-test, 07-refactor, 08-debug, 09-for-sure, 10-todo)"]
     AiddDev --> DevAgents["agents/ (executor, checker)"]
     AiddOrchestrator --> OrchestratorSkills["skills/ (00-async-dev, 01-sdlc, 02-backlog)"]
+    AiddUI --> UISkills["skills/ (01-experience-audit, 02-experience-design, 03-engagement-system)"]
 ```
